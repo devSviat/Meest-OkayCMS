@@ -1,0 +1,132 @@
+/* Лише розкладка: поля й чіпи беруть класи теми; кольори дає тема (змінні або, якщо тема
+   змінних не має, скрипт зчитує їх із власної кнопки теми). */
+.meest-cart {
+    --meest-accent: var(--okay-basic-company, var(--vs-accent, #00afee));
+    --meest-border: var(--okay-border-color, var(--vs-border, #dbdbdb));
+    --meest-text: var(--okay-body-text, var(--vs-ink, #222));
+    --meest-surface: var(--okay-boxed-color, #fff);
+    --meest-warning: #a35a00;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 0;
+    font-size: 14px;
+    font-style: normal;
+    color: var(--meest-text);
+}
+.meest-cart [hidden] { display: none !important; }
+.meest-cart__city { position: relative; margin: 0; }
+.meest-cart__suggest {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 20;
+    margin: 2px 0 0;
+    padding: 4px 0;
+    list-style: none;
+    background: var(--meest-surface);
+    border: 1px solid var(--meest-border, #dbdbdb);
+    border-radius: 4px;
+    box-shadow: var(--okay-shadow-color, 0 2px 5px rgba(0, 0, 0, .2));
+    max-height: 320px;
+    overflow-y: auto;
+}
+.meest-cart__suggest-item { padding: 8px 12px; cursor: pointer; line-height: 1.35; }
+.meest-cart__suggest-item[aria-selected="true"], .meest-cart__suggest-item:hover { background: rgba(0, 0, 0, .05); }
+.meest-cart__suggest-region { display: block; font-size: 12px; opacity: .75; }
+.meest-cart__suggest-type, .meest-cart__city-line-type { font-weight: 400; opacity: .75; }
+.meest-cart__suggest-empty { padding: 8px 12px; opacity: .75; }
+.meest-cart__points { display: flex; flex-direction: column; gap: 10px; }
+.meest-cart__search { margin: 0; }
+.meest-cart__list {
+    display: flex;
+    flex-direction: column;
+    max-height: 340px;
+    overflow-y: auto;
+    border: 1px solid var(--meest-border, #dbdbdb);
+    border-radius: 4px;
+    background: var(--meest-surface);
+}
+.meest-cart__option {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 100%;
+    padding: 10px 12px;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--meest-border, #dbdbdb);
+    cursor: pointer;
+}
+.meest-cart__option:last-child { border-bottom: 0; }
+.meest-cart__option:hover { background: rgba(0, 0, 0, .03); }
+.meest-cart__option--selected { box-shadow: inset 3px 0 0 var(--meest-accent, #00afee); background: rgba(0, 0, 0, .04); }
+.meest-cart__option--unfit { cursor: not-allowed; opacity: .6; }
+.meest-cart__option-head { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
+.meest-cart__option-kind { font-size: 12px; opacity: .75; white-space: nowrap; }
+.meest-cart__option-place { font-size: 13px; }
+.meest-cart__option-note { font-size: 12px; opacity: .8; }
+.meest-cart__option--unfit .meest-cart__option-note { color: var(--meest-warning); opacity: 1; }
+.meest-cart__count { margin-left: .4em; opacity: .7; }
+.meest-cart__more, .meest-cart__empty, .meest-cart__message { margin: 0; font-size: 13px; }
+.meest-cart__empty { padding: 10px 12px; }
+.meest-cart__quote { display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 8px 12px; font-size: 13px; line-height: 1.5; background: rgba(0, 0, 0, .03); border-radius: 4px; }
+.meest-cart__quote--problem { background: #fbf2e5; border: 1px solid #e2c08e; }
+.meest-cart__quote p { margin: 0; }
+.meest-cart--loading .meest-cart__list { opacity: .5; }
+
+/* Теми на основі okay_shop не мають компонента чіпа. */
+.me-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.me-chip {
+    min-height: 34px;
+    padding: 0 14px;
+    font: inherit;
+    font-size: 14px;
+    color: var(--meest-text);
+    background: var(--meest-surface);
+    border: 1px solid var(--meest-border, #dbdbdb);
+    border-radius: var(--meest-radius, 17px);
+    cursor: pointer;
+}
+.me-chip:hover { border-color: var(--meest-accent, #00afee); }
+.me-chip--selected {
+    color: var(--meest-accent-text, var(--okay-basic-company-text, #fff));
+    background: var(--meest-accent, #00afee);
+    border-color: var(--meest-accent, #00afee);
+}
+.me-chip--selected .meest-cart__count { opacity: .85; }
+
+/* Тема сама задає внутрішні відступи блоку; проміжок потрібен лише під описом доставки над блоком. */
+* + .fn_delivery_module_html .meest-cart { margin-top: 10px; }
+
+.meest-cart__city-line { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+.meest-cart__city-line-label, .meest-cart__city-line-area { font-size: 13px; opacity: .7; }
+.meest-cart__link {
+    padding: 0;
+    font: inherit;
+    font-weight: 600;
+    color: var(--meest-accent, #00afee);
+    text-decoration: underline;
+    background: none;
+    border: 0;
+    cursor: pointer;
+}
+.meest-cart__chosen { display: flex; align-items: flex-start; gap: 12px; line-height: 1.5; }
+.meest-cart__chosen-text { display: flex; flex: 1 1 auto; flex-direction: column; gap: 2px; min-width: 0; }
+.meest-cart__chosen-city { font-size: 12px; opacity: .7; }
+.meest-cart__chosen .meest-cart__change { flex: none; }
+.meest-cart__schedule, .meest-cart__chosen-schedule { font-size: 11px; line-height: 1.35; opacity: .75; }
+.meest-cart__chosen-schedule .meest-cart__schedule { opacity: 1; }
+.meest-cart__day { white-space: nowrap; }
+/* Вужчі бічні поля дають кільком вкладкам груп вміститися в рядок на телефоні 390 px; довші назви переносяться. */
+.meest-cart__groups > * { padding-left: 10px; padding-right: 10px; white-space: nowrap; }
+
+/* Видимий для jQuery Validate (він пропускає :hidden), але не для людей: до нього чіпляється повідомлення
+   "виберіть відділення". */
+.meest-cart__points { position: relative; }
+.meest-cart__point-check { position: absolute; width: 1px; height: 1px; padding: 0; margin: 0; border: 0; opacity: 0; pointer-events: none; }

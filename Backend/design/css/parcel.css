@@ -1,0 +1,94 @@
+.meest-parcel { margin-bottom: 12px; }
+.meest-parcel__head { margin-bottom: 8px; }
+.meest-parcel__caps { margin: 10px 0 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--ok-ink-muted, #676e75); }
+.meest-parcel__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 6px; }
+.meest-parcel__grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.meest-parcel__field { display: block; margin: 0 0 6px; }
+.meest-parcel__field .heading_label { display: block; margin-bottom: 2px; }
+.meest-parcel__error { display: block; font-size: 12px; color: var(--ok-danger, #c8352c); }
+.meest-parcel__error:empty { display: none; }
+.meest-parcel__invalid { border-color: var(--ok-danger, #c8352c) !important; }
+.meest-parcel__line { margin-bottom: 6px; font-size: 14px; line-height: 1.35; }
+.meest-parcel__label { display: block; font-size: 12px; color: var(--ok-ink-muted, #676e75); }
+.meest-parcel__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 8px; }
+.meest-parcel__row { display: flex; gap: 8px; margin-top: 8px; }
+.meest-parcel__attach[hidden], .meest-parcel__candidates[hidden] { display: none; }
+.meest-parcel__candidates { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+.meest-parcel__candidate { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 10px; border: 1px solid var(--ok-line, #e4e6e9); border-radius: 6px; font-size: 14px; }
+.meest-parcel__unlink { margin-top: 12px; }
+.meest-parcel__unlink p { margin-bottom: 6px; font-size: 12px; }
+.meest-parcel__issues .alert, .meest-parcel__notices .alert, .meest-parcel__auth { margin-top: 8px; }
+/* Уся посилка в рамці, як картка NP (waybill.css) і Ukrposhta: шапка, тіло, «Показати більше» й футер розділені лініями на всю ширину.
+   Лінія — зверху кожної частини після шапки: тіла без фактів картка не друкує, і подвійної лінії не буває. */
+.meest-card { container-type: inline-size; border: 1px solid var(--ok-line, #e4e6e9); border-radius: 10px; background: var(--ok-surface, #fff); }
+.meest-card__top { display: flex; flex-direction: column; gap: 4px; padding: 16px 20px; }
+.meest-card__muted { font-size: 12px; color: var(--ok-ink-muted, #676e75); }
+.meest-card__head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
+.meest-card__logo { flex: none; display: block; width: 16px; height: 16px; }
+.meest-card__number { padding: 0; border: 0; background: none; font: inherit; font-size: 26px; font-weight: 600; line-height: 1.2; color: var(--ok-ink, #23272b); cursor: copy; }
+.meest-card__number:hover, .meest-card__number.is-copied { color: var(--ok-accent, #135c94); }
+.meest-card__track { display: inline-flex; align-items: center; color: var(--ok-ink-muted, #676e75); }
+.meest-card__track:hover, .meest-card__track:focus-visible { color: var(--ok-accent, #135c94); }
+.meest-card__event { font-size: 14px; line-height: 1.4; }
+.meest-card__dot::before { content: "·"; margin: 0 6px; color: var(--ok-ink-muted, #676e75); }
+.meest-card__body { padding: 16px 20px; border-top: 1px solid var(--ok-line, #e4e6e9); }
+.meest-card__facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px 20px; margin: 0; }
+.meest-card__facts dt { margin: 0 0 2px; font-size: 13px; font-weight: 400; color: var(--ok-ink-muted, #676e75); }
+.meest-card__facts dd { margin: 0; font-size: 14px; line-height: 1.35; overflow-wrap: anywhere; }
+.meest-card__more { border-top: 1px solid var(--ok-line, #e4e6e9); background: var(--ok-sunken, #f2f4f4); }
+.meest-card__more[hidden] { display: none; }
+.meest-card__more-inner { padding: 16px 20px; }
+.meest-card__issues .alert { margin: 12px 20px 0; }
+.meest-card__footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 20px; border-top: 1px solid var(--ok-line, #e4e6e9); font-size: 13px; }
+.meest-card__more-toggle { display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px; border: 0; border-radius: 4px; background: #f5f5f5; color: #757575; font-size: 14px; font-weight: 500; cursor: pointer; }
+.meest-card__more-toggle:hover { background: #e7e7e7; }
+.meest-card__more-toggle svg { transition: transform .3s ease; }
+.meest-card__more-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.meest-card__tools { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-left: auto; }
+.meest-card__meta { margin-right: 2px; font-size: 12px; color: var(--ok-ink-muted, #676e75); }
+.meest-card__sep { width: 1px; height: 24px; margin: 0 4px; background: var(--ok-line, #e4e6e9); }
+.meest-card__sticker svg { margin-right: 4px; vertical-align: -3px; }
+.meest-card__icon { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 8px; background: none; color: var(--ok-ink-muted, #676e75); cursor: pointer; }
+.meest-card__icon:hover, .meest-card__icon:focus-visible { background: var(--ok-sunken, #eef0f3); color: var(--ok-ink, #212529); }
+.meest-card__icon--danger:hover, .meest-card__icon--danger:focus-visible { color: var(--ok-danger, #c8352c); }
+.meest-card__caps { margin: 14px 0 6px; font-size: 14px; font-weight: 600; text-transform: uppercase; color: var(--ok-ink, #212529); }
+.meest-card__facts + .meest-card__caps { margin-top: 14px; }
+.meest-card__more-inner > .meest-card__caps:first-child { margin-top: 0; }
+.meest-card__history { margin: 0; padding: 0; list-style: none; font-size: 13px; line-height: 1.35; }
+.meest-card__history li { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 8px; padding: 5px 0; border-top: 1px solid #e3e6e6; }
+.meest-card__when { white-space: nowrap; color: var(--ok-ink-muted, #676e75); }
+@container (max-width: 440px) {
+    .meest-card__top, .meest-card__body, .meest-card__more-inner, .meest-card__footer { padding-left: 14px; padding-right: 14px; }
+    .meest-card__issues .alert { margin-left: 14px; margin-right: 14px; }
+    .meest-card__number { font-size: 20px; }
+    .meest-card__history li { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .meest-card__meta { display: none; }
+}
+/* Тони бейджів ті самі, що в накладної NP і Ukrposhta: група Meest лише обирає тон. */
+.meest-parcel__badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; background: #e2e3e5; color: #383d41; }
+.meest-parcel__badge--created, .meest-parcel__badge--storage { background: #fff3cd; color: #856404; }
+.meest-parcel__badge--in_transit { background: #cfe2ff; color: #084298; }
+.meest-parcel__badge--arrived { background: #d1e2e7; color: #0f5132; }
+.meest-parcel__badge--received { background: #d1e7dd; color: #0f5132; }
+.meest-parcel__badge--problem, .meest-parcel__badge--returning, .meest-parcel__badge--returned { background: #f8d7da; color: #721c24; }
+.meest-parcel__badge--cancelled { background: #e2e3e5; color: #383d41; }
+.meest-parcel__badge--unsettled { background: #fff3cd; color: #856404; }
+/* Рядок у списку замовлень: метрики ті самі, що в NP і Ukrposhta; номер починається на 21px (знак 16 + проміжок 5). */
+.meest-list-status { margin-top: 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; }
+.meest-list-status__logo { flex: none; display: block; }
+.okay_list .meest-list-status a.meest-list-status__barcode:not(.btn) { color: #646464; white-space: nowrap; text-decoration: none; }
+.okay_list .meest-list-status a.meest-list-status__barcode:not(.btn):hover { color: var(--ok-accent, #135c94); }
+.okay_list .meest-list-status a.meest-list-status__barcode.is-copied:not(.btn) { color: var(--ok-ink, #1f2328); }
+.meest-list-status .meest-parcel__badge { margin-left: 4px; padding: 3px 6px; font-size: 10px; line-height: 1; white-space: nowrap; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1); }
+.meest-mass { display: flex; flex-direction: column; gap: 6px; }
+.meest-mass__head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.meest-mass__title { font-weight: 600; }
+.meest-mass__hide { background: none; border: 0; padding: 0; color: var(--ok-accent, #005893); text-decoration: underline; cursor: pointer; font: inherit; }
+.meest-mass__row--created { color: var(--ok-success, #227d3a); }
+.meest-mass__row--skipped { color: var(--ok-warning, #a35a00); }
+.meest-mass__row--failed { color: var(--ok-danger, #c8352c); }
+.meest-mass__note { padding: 8px 10px; border-radius: 6px; background: var(--ok-accent-soft, #e6f0f7); }
+.meest-parcel button.is-busy { cursor: progress; opacity: .7; }
+@media (max-width: 575px) {
+    .meest-parcel__grid { grid-template-columns: 1fr; }
+}
