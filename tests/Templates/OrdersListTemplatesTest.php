@@ -19,7 +19,7 @@ class OrdersListTemplatesTest extends TestCase
 
         self::assertStringContainsString('data-copy-string="711-2550636"', $html);
         self::assertMatchesRegularExpression(
-            '~<svg class="meest-list-status__logo" width="16" height="16" viewBox="40 39 433 433" aria-hidden="true">.*</svg>\s*<a [^>]*meest-list-status__barcode~s',
+            '~<svg class="meest-list-status__logo" width="9.59" height="14" viewBox="126 65 261 381" aria-hidden="true">.*</svg>\s*<a [^>]*meest-list-status__barcode~s',
             $html,
             'glyph before the number',
         );
@@ -85,5 +85,19 @@ class OrdersListTemplatesTest extends TestCase
         }
 
         return $smarty->fetch($template);
+    }
+
+    /** Номер копіюється так само, як у Нової Пошти: елемент ядра .fn_clipboard, підказка «Натисніть, щоб скопіювати», жовте «Скопійовано». */
+    public function testNumberCopiesLikeNovaPoshta(): void
+    {
+        $html = self::render('orders_status.tpl', ['order' => (object)['id' => 11, 'meest_list_parcel' => ['barcode' => '711-2550636', 'group' => 'arrived', 'statusKey' => 'sviat__meest__parcel_group_arrived', 'eventName' => null]]]);
+        $root = dirname(__DIR__, 5) . '/Okay/Modules/Sviat/Meest/Backend';
+        $script = (string)file_get_contents($root . '/design/js/parcel.js');
+
+        self::assertMatchesRegularExpression('~<a href="" class="meest-list-status__barcode fn_clipboard fn_meest_copy hint-bottom-middle-t-info-s-small-mobile hint-anim" data-hint="Натисніть, щоб скопіювати" data-hint-copied="Скопійовано" data-copy-string="711-2550636"~u', $html);
+        self::assertStringContainsString("event.target.closest('.fn_meest_copy')", $script);
+        self::assertStringNotContainsString('fn_meest_parcel_copy', $script);
+        self::assertStringNotContainsString('fn_meest_list_copy', $script);
+        self::assertStringNotContainsString('sviat__meest__list_copy', (string)file_get_contents($root . '/lang/ua.php'));
     }
 }

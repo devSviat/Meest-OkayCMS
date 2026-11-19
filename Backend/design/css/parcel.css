@@ -1,5 +1,6 @@
 .meest-parcel { margin-bottom: 12px; }
 .meest-parcel__head { margin-bottom: 8px; }
+.meest-parcel--card .meest-parcel__head { margin-bottom: 15px; }
 .meest-parcel__caps { margin: 10px 0 6px; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--ok-ink-muted, #676e75); }
 .meest-parcel__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin-bottom: 6px; }
 .meest-parcel__grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -24,10 +25,15 @@
 .meest-card__top { display: flex; flex-direction: column; gap: 4px; padding: 16px 20px; }
 .meest-card__muted { font-size: 12px; color: var(--ok-ink-muted, #676e75); }
 .meest-card__head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; }
-.meest-card__logo { flex: none; display: block; width: 16px; height: 16px; }
-.meest-card__number { padding: 0; border: 0; background: none; font: inherit; font-size: 26px; font-weight: 600; line-height: 1.2; color: var(--ok-ink, #23272b); cursor: copy; }
+/* Знак заввишки з цифру номера (Inter 600 26px: 19px) і стоїть на його базовій лінії; -4px дає 8px до номера замість gap 12px. */
+.meest-card__logo { flex: none; display: block; width: auto; height: 19px; align-self: baseline; }
+.meest-card .meest-card__logo { margin: 0 -4px 0 0; }
+.meest-card__head .meest-card__number { align-self: baseline; padding-left: 0; }
+.meest-card__number { border: 0; background: none; font: inherit; font-size: 26px; font-weight: 600; line-height: 1.2; color: var(--ok-ink, #23272b); cursor: copy; }
 .meest-card__number:hover, .meest-card__number.is-copied { color: var(--ok-accent, #135c94); }
 .meest-card__track { display: inline-flex; align-items: center; color: var(--ok-ink-muted, #676e75); }
+/* Номер — Inter 26px з line-height 1.2: центр цифр на 1.35px вище за центр рядка, на який стають інші елементи. */
+.meest-card__head .meest-parcel__badge, .meest-card__head .meest-card__track { transform: translateY(-1.35px); }
 .meest-card__track:hover, .meest-card__track:focus-visible { color: var(--ok-accent, #135c94); }
 .meest-card__event { font-size: 14px; line-height: 1.4; }
 .meest-card__dot::before { content: "·"; margin: 0 6px; color: var(--ok-ink-muted, #676e75); }
@@ -75,8 +81,11 @@
 .meest-parcel__badge--unsettled { background: #fff3cd; color: #856404; }
 /* Рядок у списку замовлень: метрики ті самі, що в NP і Ukrposhta; номер починається на 21px (знак 16 + проміжок 5). */
 .meest-list-status { margin-top: 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; }
-.meest-list-status__logo { flex: none; display: block; }
+.meest-list-status__logo { flex: none; display: block; width: auto; height: 14px; }
+.meest-list-status .meest-list-status__logo { margin: 0; }
 .okay_list .meest-list-status a.meest-list-status__barcode:not(.btn) { color: #646464; white-space: nowrap; text-decoration: none; }
+/* Номер — елемент ядра .fn_clipboard (його padding 0 2px); зліва 0, щоб проміжок від знака лишився 5px. */
+.meest-list-status .meest-list-status__barcode { padding-left: 0; }
 .okay_list .meest-list-status a.meest-list-status__barcode:not(.btn):hover { color: var(--ok-accent, #135c94); }
 .okay_list .meest-list-status a.meest-list-status__barcode.is-copied:not(.btn) { color: var(--ok-ink, #1f2328); }
 .meest-list-status .meest-parcel__badge { margin-left: 4px; padding: 3px 6px; font-size: 10px; line-height: 1; white-space: nowrap; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .1); }
