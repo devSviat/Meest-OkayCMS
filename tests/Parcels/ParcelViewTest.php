@@ -214,7 +214,7 @@ class ParcelViewTest extends TestCase
     {
         $html = self::render('parcel_main.tpl', self::build(self::row()));
 
-        self::assertMatchesRegularExpression('~<svg class="meest-card__logo" width="16" height="16" viewBox="40 39 433 433" aria-hidden="true">~', $html);
+        self::assertMatchesRegularExpression('~<svg class="meest-card__logo" width="13.02" height="19" viewBox="126 65 261 381" aria-hidden="true">~', $html);
         self::assertStringContainsString('fill="#0056A4"', $html);
         self::assertStringContainsString('fill="#E40137"', $html);
         self::assertStringNotContainsString('<img', $html);
@@ -340,5 +340,11 @@ class ParcelViewTest extends TestCase
         $smarty->assign('meest_parcel', $view);
 
         return $smarty->fetch($template);
+    }
+
+    /** Номер копіюється так само, як у Нової Пошти: елемент ядра .fn_clipboard, підказка «Натисніть, щоб скопіювати», жовте «Скопійовано». */
+    public function testNumberCopiesLikeNovaPoshta(): void
+    {
+        self::assertMatchesRegularExpression('~<a href="" class="meest-card__number fn_clipboard fn_meest_copy hint-bottom-middle-t-info-s-small-mobile hint-anim" data-hint="Натисніть, щоб скопіювати" data-hint-copied="Скопійовано" data-copy-string="711-2550636"~u', self::render('parcel_main.tpl', self::build(self::row())));
     }
 }

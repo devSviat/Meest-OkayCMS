@@ -279,46 +279,8 @@
             .finally(function () { busy(button, false); });
     }
 
-    function copied(button) {
-        button.classList.add('is-copied');
-        button.title = button.getAttribute('data-copied');
-        setTimeout(function () { button.classList.remove('is-copied'); }, 1000);
-    }
-
-    /** Буфер обміну може відмовити (немає дозволу, вкладка не у фокусі): тоді кажемо про це, а не «Скопійовано». */
-    function copyFailed(button) {
-        var text = button.getAttribute('data-copy-failed');
-        button.title = text;
-        toast('error', text, '');
-    }
-
-    function copy(button) {
-        var value = button.getAttribute('data-copy');
-        if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(value).then(function () { copied(button); }, function () { copyFailed(button); });
-            return;
-        }
-        var field = document.createElement('input');
-        field.value = value;
-        field.setAttribute('readonly', '');
-        field.style.position = 'absolute';
-        field.style.opacity = '0';
-        document.body.appendChild(field);
-        field.select();
-        var done = false;
-        try {
-            done = document.execCommand('copy');
-        } catch (e) {}
-        document.body.removeChild(field);
-        if (done) {
-            copied(button);
-        } else {
-            copyFailed(button);
-        }
-    }
-
     document.addEventListener('click', function (event) {
-        var button = event.target.closest('.fn_meest_parcel_create, .fn_meest_parcel_attach, .fn_meest_parcel_attach_toggle, .fn_meest_parcel_lookup, .fn_meest_parcel_choose, .fn_meest_parcel_remove, .fn_meest_parcel_unlink, .fn_meest_parcel_refresh, .fn_meest_parcel_sticker, .fn_meest_parcel_copy');
+        var button = event.target.closest('.fn_meest_parcel_create, .fn_meest_parcel_attach, .fn_meest_parcel_attach_toggle, .fn_meest_parcel_lookup, .fn_meest_parcel_choose, .fn_meest_parcel_remove, .fn_meest_parcel_unlink, .fn_meest_parcel_refresh, .fn_meest_parcel_sticker');
         var root = button ? rootOf(button) : null;
         if (!root) {
             return;
@@ -345,8 +307,6 @@
             send(root, button, 'refresh', {});
         } else if (has('fn_meest_parcel_sticker')) {
             sticker(root, button);
-        } else if (has('fn_meest_parcel_copy')) {
-            copy(button);
         } else if (has('fn_meest_parcel_remove')) {
             if (window.confirm(root.getAttribute('data-confirm-remove'))) {
                 send(root, button, 'remove', {});
@@ -370,10 +330,10 @@
         }
     });
 
-    // Ядро прив'язує .fn_clipboard ще в <head>, до появи рядків списку замовлень; без власного обробника
-    // клік по href="" перезавантажує сторінку.
+    // Ядро прив'язує .fn_clipboard ще в <head>, до появи рядків списку замовлень і картки; без власного обробника
+    // клік по href="" перезавантажує сторінку. Один обробник на список і картку: копіюють однаково.
     document.addEventListener('click', function (event) {
-        var link = event.target.closest('.fn_meest_list_copy');
+        var link = event.target.closest('.fn_meest_copy');
         if (!link) {
             return;
         }
