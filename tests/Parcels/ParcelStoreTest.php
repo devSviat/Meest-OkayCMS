@@ -150,4 +150,44 @@ class ParcelStoreTest extends TestCase
 
         self::assertSame(7, $this->store($entity)->orderOfBarcode('7112550636'));
     }
+
+    /** Вибірка однієї колонки дає значення, а не рядок: так відповідає справжня сутність. */
+    public function testOldestUnfinishedReadsTheSingleColumnValue(): void
+    {
+        $entity = self::singleColumnEntity('2026-11-01 09:30:00');
+
+        self::assertSame('2026-11-01 09:30:00', $this->store($entity)->oldestUnfinishedCreatedAt('2026-09-01 00:00:00'));
+        self::assertNull($this->store(self::singleColumnEntity(false))->oldestUnfinishedCreatedAt('2026-09-01 00:00:00'));
+    }
+
+    /** order() у сутності final і читає select, тож він підміняється записувачем, що приймає будь-який виклик. */
+    private static function singleColumnEntity(string|false $value): ParcelEntity
+    {
+        $entity = new class extends ParcelEntity {
+            public string|false $value = false;
+
+            public function __construct()
+            {
+            }
+
+            public function cols(array $cols)
+            {
+                return $this;
+            }
+
+            public function findOne(array $filter = [])
+            {
+                return $this->value;
+            }
+        };
+        $entity->value = $value;
+        new \ReflectionProperty(\Okay\Core\Entity\Entity::class, 'select')->setValue($entity, new class {
+            public function __call(string $name, array $arguments): static
+            {
+                return $this;
+            }
+        });
+
+        return $entity;
+    }
 }

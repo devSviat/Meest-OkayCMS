@@ -239,10 +239,20 @@ class SettingsAdminTest extends TestCase
     private function citiesFactory(): EntityFactory
     {
         $known = [self::CITY_A => (object)['id' => self::CITY_A, 'name_ua' => 'Вигадане', 'type_ua' => 'м.', 'region_ua' => 'Вигадана']];
+        // Як справжня сутність: з однією колонкою в cols() find() віддає значення, а не рядки.
+        $cols = [];
         $cities = $this->createStub(CityEntity::class);
-        $cities->method('cols')->willReturnSelf();
+        $cities->method('cols')->willReturnCallback(function (array $asked) use (&$cols, &$cities) {
+            $cols = $asked;
+
+            return $cities;
+        });
         $cities->method('noLimit')->willReturnSelf();
-        $cities->method('find')->willReturnCallback(static fn(array $filter = []) => array_values(array_intersect_key($known, array_flip($filter['id'] ?? []))));
+        $cities->method('find')->willReturnCallback(static function (array $filter = []) use ($known, &$cols): array {
+            $found = array_values(array_intersect_key($known, array_flip($filter['id'] ?? [])));
+
+            return count($cols) === 1 ? array_map(static fn(object $row): mixed => $row->{$cols[0]}, $found) : $found;
+        });
         $factory = $this->createStub(EntityFactory::class);
         $factory->method('get')->willReturn($cities);
 
