@@ -175,9 +175,9 @@ final class ParcelStore implements ParcelRows
 
     public function oldestUnfinishedCreatedAt(string $createdSince): ?string
     {
-        $row = $this->entity()->cols(['created_at'])->order('oldest')->findOne(['unfinished' => $createdSince]);
+        $createdAt = $this->entity()->cols(['created_at'])->order('oldest')->findOne(['unfinished' => $createdSince]);
 
-        return is_object($row) && is_string($row->created_at ?? null) ? $row->created_at : null;
+        return is_string($createdAt) && $createdAt !== '' ? $createdAt : null;
     }
 
     /**

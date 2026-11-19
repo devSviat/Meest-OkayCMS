@@ -23,10 +23,20 @@ class PopularCitiesTest extends TestCase
         foreach ($known as $id) {
             $rows[$id] = (object)['id' => $id, 'name_ua' => 'Місто ' . substr($id, 0, 2), 'type_ua' => 'м.', 'region_ua' => 'Вигадана'];
         }
+        // Як справжня сутність: з однією колонкою в cols() find() віддає значення, а не рядки.
+        $cols = [];
         $entity = $this->createStub(CityEntity::class);
-        $entity->method('cols')->willReturnSelf();
+        $entity->method('cols')->willReturnCallback(function (array $asked) use (&$cols, &$entity) {
+            $cols = $asked;
+
+            return $entity;
+        });
         $entity->method('noLimit')->willReturnSelf();
-        $entity->method('find')->willReturnCallback(static fn(array $filter = []) => array_values(array_intersect_key($rows, array_flip($filter['id'] ?? []))));
+        $entity->method('find')->willReturnCallback(static function (array $filter = []) use ($rows, &$cols): array {
+            $found = array_values(array_intersect_key($rows, array_flip($filter['id'] ?? [])));
+
+            return count($cols) === 1 ? array_map(static fn(object $row): mixed => $row->{$cols[0]}, $found) : $found;
+        });
         $factory = $this->createStub(EntityFactory::class);
         $factory->method('get')->willReturn($entity);
 
